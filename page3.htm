@@ -310,7 +310,7 @@
         phenomenaTime: "2235",
         flightLevel: "UNKN",
         aircraftType: "PA31",
-        skyCondition: "BKN020-TOP027/OVC035-TOP040",
+        skyCondition: "BKN020-TOP027/OVC045-TOP060",
         pilotRemarks: "THN CI ABV"
       };
 
@@ -327,7 +327,7 @@
       // Second click: show final answer, plus Transmit & Next
       else if (populateClickCount === 1) {
         document.getElementById("correctAnswer").innerText =
-          "MRI UA /OV BGQ180010/TM 2235/FLUNKN/TP PA31/SK BKN020-TOP027/OVC035-TOP040/RM THN CI ABV";
+          "MRI UA /OV BGQ180010/TM 2235/FLUNKN/TP PA31/SK BKN020-TOP027/OVC045-TOP060/RM THN CI ABV";
         document.getElementById("correctAnswer").style.display = "block";
         document.getElementById("transmitBox").style.display = "block";
         document.getElementById("nextBox").style.display = "block";
@@ -353,7 +353,7 @@
         phenomenaTime: "2235",
         flightLevel: "UNKN",
         aircraftType: "PA31",
-        skyCondition: "BKN020-TOP027/OVC035-TOP040",
+        skyCondition: "BKN020-TOP027/OVC045-TOP060",
         pilotRemarks: "THN CI ABV"
       };
       let allCorrect = Object.keys(requiredValues).every(field => {
@@ -367,7 +367,7 @@
     // Transmit button logic
     function newPilotReport() {
       document.getElementById("correctAnswer").innerText =
-        "MRI UA /OV BGQ180010/TM 2235/FLUNKN/TP PA31/SK BKN020-TOP027/OVC035-TOP040/RM THN CI ABV";
+        "MRI UA /OV BGQ180010/TM 2235/FLUNKN/TP PA31/SK BKN020-TOP027/OVC045-TOP060/RM THN CI ABV";
       document.getElementById("correctAnswer").style.display = "block";
       document.getElementById("nextBox").style.display = "block";
     }
