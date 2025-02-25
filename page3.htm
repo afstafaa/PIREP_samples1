@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Transmit PIREP (Expanded) - Page 3</title>
+  <style>
+    /* Form Container */
+    .form-container {
+      width: 692px;
+      height: 754px;
+      position: relative;
+      z-index: 100;
+      background: url("pirep.png") no-repeat;
+      background-size: contain;
+      margin: 0 auto;
+      border: none;
+    }
+    /* All Form Fields – fully editable */
+    .form-field {
+      position: absolute;
+      font-size: 14px;
+      background-color: rgba(255,255,255,0.3);
+      border: 1px solid transparent;
+      z-index: 10;
+      box-sizing: border-box;
+      resize: none;
+      overflow: auto;
+      padding-left: 3.2ch;
+      text-transform: uppercase;
+    }
+    /* Field Positions */
+    .accountable-facility {
+      top: 40px;
+      left: 140px;
+      width: 75px;
+      height: 21px;
+      padding-left: 0.8ch;
+    }
+    .pilot-report-type {
+      top: 41px;
+      left: 413px;
+      width: 68px;
+      height: 21px;
+      text-align: left;
+      padding-left: 5px;
+    }
+    /* Make the "A" button invisible but still clickable */
+    .populate-box {
+      opacity: 0; /* fully transparent */
+      position: absolute;
+      top: 41px;
+      left: 490px;
+      width: 30px;
+      height: 21px;
+      text-align: center;
+      line-height: 21px;
+      font-size: 14px;
+      font-weight: bold;
+      color: black;
+      background-color: #ddd;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      z-index: 110;
+    }
+    .phenomena-location {
+      top: 75px;
+      left: 146px;
+      width: 233px;
+      height: 19px;
+    }
+    .phenomena-time {
+      top: 109px;
+      left: 144px;
+      width: 82px;
+      height: 18px;
+    }
+    .flight-level {
+      top: 108px;
+      left: 326px;
+      width: 80px;
+      height: 21px;
+    }
+    .aircraft-type {
+      top: 108px;
+      left: 498px;
+      width: 88px;
+      height: 21px;
+    }
+    .sky-condition {
+      top: 143px;
+      left: 144px;
+      width: 480px;
+      height: 20px;
+    }
+    /* Additional Editable Boxes */
+    .flight-visibility {
+      top: 177px;
+      left: 144px;
+      width: 480px;
+      height: 20px;
+      padding-left: 3.6ch;
+    }
+    .temperature {
+      top: 211px;
+      left: 144px;
+      width: 480px;
+      height: 20px;
+    }
+    .wind-velocity {
+      top: 245px;
+      left: 144px;
+      width: 480px;
+      height: 20px;
+      padding-left: 3.6ch;
+    }
+    .turbulence {
+      top: 280px;
+      left: 144px;
+      width: 480px;
+      height: 20px;
+    }
+    .icing {
+      top: 314px;
+      left: 144px;
+      width: 480px;
+      height: 20px;
+      padding-left: 2.7ch;
+    }
+    .pilot-remarks {
+      top: 348px;
+      left: 144px;
+      width: 480px;
+      height: 33px;
+    }
+    .braking-action {
+      top: 397px;
+      left: 144px;
+      width: 480px;
+      height: 33px;
+    }
+    /* Transmit and Next Boxes – initially hidden */
+    .transmit-box {
+      position: absolute;
+      top: 590px;
+      left: 505px;
+      width: 75px;
+      height: 21px;
+      border: 2px solid red;
+      text-align: center;
+      font-size: 14px;
+      line-height: 21px;
+      font-weight: bold;
+      color: black;
+      background-color: white;
+      display: none;
+      cursor: pointer;
+      z-index: 120;
+    }
+    .next-box {
+      position: absolute;
+      top: 590px;
+      left: 590px;
+      width: 75px;
+      height: 21px;
+      border: 2px solid blue;
+      text-align: center;
+      font-size: 14px;
+      line-height: 21px;
+      font-weight: bold;
+      color: black;
+      background-color: white;
+      display: none;
+      cursor: pointer;
+      z-index: 120;
+    }
+    /* Correct Answer Display */
+    #correctAnswer {
+      display: none;
+      margin-top: 20px;
+      font-size: 48px;
+      font-weight: bold;
+      color: black;
+      text-align: left;
+      margin-left: 20px;
+    }
+    /* Cassette Container & Controls */
+    .cassette-container {
+      width: 333px;
+      height: 250px;
+      background: url('cassette_tape.png') no-repeat center;
+      background-size: contain;
+      position: absolute;
+      left: 50px;
+      top: 50px;
+      border: 1px solid #555;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.5);
+      z-index: 1;
+    }
+    .control-button {
+      width: 50px;
+      height: 50px;
+      font-size: 18px;
+      font-weight: bold;
+      position: absolute;
+      background: linear-gradient(to bottom, #666, #333);
+      color: white;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+      transition: all 0.2s ease-in-out;
+      border: none;
+      user-select: none;
+    }
+    .control-button:hover {
+      background: linear-gradient(to bottom, #999, #666);
+    }
+    #rewindButton {
+      left: 130px;
+      bottom: 50px;
+    }
+    #playButton {
+      right: 210px;
+      bottom: 50px;
+    }
+    #instructionAudio {
+      display: none;
+    }
+    /* CLOCK IMAGE & LABEL (TOP-RIGHT, "AST") */
+    .clock-container {
+      position: absolute;
+      top: 10px;
+      right: 200px;
+      text-align: center;
+      z-index: 999;
+    }
+    .clock-image {
+      display: block;
+      margin: 0 auto;
+      width: 80px;
+      height: auto;
+    }
+    .clock-label {
+      font-size: 20px;
+      font-weight: bold;
+      color: black;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <!-- CLOCK CONTAINER WITH "AST" LABEL -->
+  <div class="clock-container">
+    <img src="2235Z1435L.png" alt="Clock" class="clock-image">
+    <div class="clock-label">AST</div>
+  </div>
+
+  <form id="pirepForm">
+    <div class="form-container">
+      <!-- Required Fields -->
+      <textarea name="accountableFacility" class="form-field accountable-facility"></textarea>
+      <select name="pilotReportType" class="form-field pilot-report-type">
+        <option value="UA" selected>UA</option>
+        <option value="UUA">UUA</option>
+      </select>
+
+      <!-- "A" Populate Box (invisible, but still clickable) -->
+      <div id="populateBox" class="populate-box">A</div>
+
+      <textarea name="phenomenaLocation" class="form-field phenomena-location"></textarea>
+      <textarea name="phenomenaTime" class="form-field phenomena-time"></textarea>
+      <textarea name="flightLevel" class="form-field flight-level" maxlength="4"></textarea>
+      <textarea name="aircraftType" class="form-field aircraft-type"></textarea>
+      <textarea name="skyCondition" class="form-field sky-condition"></textarea>
+
+      <!-- Additional Editable Boxes -->
+      <textarea name="flightVisibility" class="form-field flight-visibility"></textarea>
+      <textarea name="temperature" class="form-field temperature"></textarea>
+      <textarea name="windVelocity" class="form-field wind-velocity"></textarea>
+      <textarea name="turbulence" class="form-field turbulence"></textarea>
+      <textarea name="icing" class="form-field icing"></textarea>
+      <textarea name="pilotRemarks" class="form-field pilot-remarks"></textarea>
+      <textarea name="brakingAction" class="form-field braking-action"></textarea>
+
+      <!-- Transmit and Next Buttons -->
+      <div id="transmitBox" class="transmit-box" onclick="newPilotReport()">Transmit</div>
+      <div id="nextBox" class="next-box" onclick="goToNextPage()">Next</div>
+    </div>
+  </form>
+
+  <div id="correctAnswer"></div>
+
+  <!-- Cassette Container -->
+  <div class="cassette-container">
+    <button id="rewindButton" class="control-button">⏪</button>
+    <button id="playButton" class="control-button">▶️</button>
+  </div>
+
+  <!-- Hidden Audio Element -->
+  <audio id="instructionAudio" src="pirep_audio2.mp3"></audio>
+
+  <script>
+    let populateClickCount = 0;
+
+    // "A" button logic: first click = auto-fill fields, second click = show final answer
+    function populateAnswer() {
+      const answerValues = {
+        accountableFacility: "MRI",
+        pilotReportType: "UA",
+        phenomenaLocation: "BGQ180010",
+        phenomenaTime: "2235",
+        flightLevel: "UNKN",
+        aircraftType: "PA31",
+        skyCondition: "BKN020-TOP027/OVC035-TOP040",
+        pilotRemarks: "THN CI ABV"
+      };
+
+      // First click: auto-fill the required fields
+      if (populateClickCount === 0) {
+        Object.keys(answerValues).forEach(function(fieldName) {
+          let field = document.querySelector(`[name="${fieldName}"]`);
+          if (field) {
+            field.value = answerValues[fieldName];
+          }
+        });
+        populateClickCount++;
+      }
+      // Second click: show final answer, plus Transmit & Next
+      else if (populateClickCount === 1) {
+        document.getElementById("correctAnswer").innerText =
+          "MRI UA /OV BGQ180010/TM 2235/FLUNKN/TP PA31/SK BKN020-TOP027/OVC035-TOP040/RM THN CI ABV";
+        document.getElementById("correctAnswer").style.display = "block";
+        document.getElementById("transmitBox").style.display = "block";
+        document.getElementById("nextBox").style.display = "block";
+        populateClickCount++;
+      }
+    }
+    document.getElementById("populateBox").addEventListener("click", populateAnswer);
+
+    // Convert input to uppercase and check for completion as user types
+    document.querySelectorAll(".form-field").forEach(field => {
+      field.addEventListener("input", function() {
+        this.value = this.value.toUpperCase();
+        checkCompletion();
+      });
+    });
+
+    // Check if all required fields match
+    function checkCompletion() {
+      const requiredValues = {
+        accountableFacility: "MRI",
+        pilotReportType: "UA",
+        phenomenaLocation: "BGQ180010",
+        phenomenaTime: "2235",
+        flightLevel: "UNKN",
+        aircraftType: "PA31",
+        skyCondition: "BKN020-TOP027/OVC035-TOP040",
+        pilotRemarks: "THN CI ABV"
+      };
+      let allCorrect = Object.keys(requiredValues).every(field => {
+        let inputField = document.querySelector(`[name="${field}"]`);
+        return inputField && inputField.value.trim().toUpperCase() === requiredValues[field];
+      });
+      // Show Transmit only if all required fields match
+      document.getElementById("transmitBox").style.display = allCorrect ? "block" : "none";
+    }
+
+    // Transmit button logic
+    function newPilotReport() {
+      document.getElementById("correctAnswer").innerText =
+        "MRI UA /OV BGQ180010/TM 2235/FLUNKN/TP PA31/SK BKN020-TOP027/OVC035-TOP040/RM THN CI ABV";
+      document.getElementById("correctAnswer").style.display = "block";
+      document.getElementById("nextBox").style.display = "block";
+    }
+
+    // Cassette Buttons
+    var audio = document.getElementById("instructionAudio");
+    var playButton = document.getElementById("playButton");
+    var rewindButton = document.getElementById("rewindButton");
+
+    playButton.addEventListener("click", function() {
+      if (audio.paused || audio.ended) {
+        audio.play();
+        playButton.innerText = "⏸";
+      } else {
+        audio.pause();
+        playButton.innerText = "▶️";
+      }
+    });
+
+    rewindButton.addEventListener("click", function() {
+      audio.currentTime = Math.max(0, audio.currentTime - 10);
+    });
+
+    // Go to page4
+    function goToNextPage() {
+      window.location.href = "page4.htm";
+    }
+  </script>
+</body>
+</html>
