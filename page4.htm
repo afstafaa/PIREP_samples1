@@ -308,7 +308,7 @@
       if (populateClickCount === 0) {
         // Required fields for auto-population
         const answerValues = {
-          accountableFacility: "SQA",
+          accountableFacility: "SXQ",
           "pilot-report-type": "UA",
           phenomenaLocation: "ENA120015",
           phenomenaTime: "0021",
@@ -329,7 +329,7 @@
       } else if (populateClickCount === 1) {
         // Show final PIREP, plus Transmit & Next
         document.getElementById("correctAnswer").innerText =
-          "SQA UA /OV ENA120015/TM 0021/FL080/TP C210/SK OVCUNKN-TOP047/ SKC/TA M12/IC NEG";
+          "SXQ UA /OV ENA120015/TM 0021/FL080/TP C210/SK OVCUNKN-TOP047/ SKC/TA M12/IC NEG";
         document.getElementById("correctAnswer").style.display = "block";
         document.getElementById("transmitBox").style.display = "block";
         document.getElementById("nextBox").style.display = "block";
@@ -349,7 +349,7 @@
     // Check if all required fields match the correct values
     function checkCompletion() {
       const requiredValues = {
-        accountableFacility: "SQA",
+        accountableFacility: "SXQ",
         "pilot-report-type": "UA",
         phenomenaLocation: "ENA120015",
         phenomenaTime: "0021",
@@ -370,7 +370,7 @@
     // When Transmit is clicked, show the final PIREP and reveal Next
     function newPilotReport() {
       document.getElementById("correctAnswer").innerText =
-        "SQA UA /OV ENA120015/TM 0021/FL080/TP C210/SK OVCUNKN-TOP047/ SKC/TA M12/IC NEG";
+        "SXQ UA /OV ENA120015/TM 0021/FL080/TP C210/SK OVCUNKN-TOP047/ SKC/TA M12/IC NEG";
       document.getElementById("correctAnswer").style.display = "block";
       document.getElementById("nextBox").style.display = "block";
     }
