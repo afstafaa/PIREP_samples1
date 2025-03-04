@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Page 11</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+    /* Container for the background video */
+    #videoContainer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    #videoContainer video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    /* Play button overlay */
+    #playButton {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 15px 25px;
+      font-size: 18px;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <div id="videoContainer">
+    <video id="bgVideo" loop playsinline muted>
+      <source src="video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+  <button id="playButton">Play Video with Sound</button>
+
+  <script>
+    const video = document.getElementById('bgVideo');
+    const playButton = document.getElementById('playButton');
+
+    // Try to autoplay the video (muted)
+    video.play().catch(error => {
+      console.log("Autoplay error:", error);
+    });
+
+    // On button click, unmute and play the video, then hide the button.
+    playButton.addEventListener('click', function() {
+      video.muted = false;
+      video.play();
+      playButton.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
